@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class SeatService {
-    private List<Seat> seatList;
+    private final List<Seat> seatList;
 
     // In an actual app, this service would most likely be getting data from a relational DB
     public SeatService() {
@@ -30,7 +30,7 @@ public class SeatService {
         this.seatList = seatList;
     }
 
-    public List<Seat> getSeatList() {
+    public List<Seat> getAllSeats() {
         return seatList;
     }
 }

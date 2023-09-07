@@ -14,6 +14,7 @@ public class Seat extends Ticket {
         this.token = null;
     }
 
+    @JsonIgnore
     public UUID getToken() {
         return token;
     }
