@@ -31,6 +31,4 @@ public class Seat extends Ticket {
     public void setOccupied(boolean occupied) {
         isOccupied = occupied;
     }
-
-
 }

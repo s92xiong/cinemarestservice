@@ -1,6 +1,6 @@
 package com.cinemaroomrestservice.cinemarestservice.controller;
 
-import com.cinemaroomrestservice.cinemarestservice.model.Seat;
+import com.cinemaroomrestservice.cinemarestservice.dto.SeatResponse;
 import com.cinemaroomrestservice.cinemarestservice.service.SeatService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/seats")
 public class SeatsController {
-
     private final SeatService seatService;
 
     public SeatsController(SeatService seatService) {
@@ -19,7 +18,7 @@ public class SeatsController {
     }
 
     @GetMapping
-    public List<Seat> getSeats() {
-        return seatService.getAllSeats();
+    public SeatResponse getAllSeats() {
+        return seatService.generateSeatResponse();
     }
 }
