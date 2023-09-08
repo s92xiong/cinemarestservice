@@ -35,7 +35,7 @@ public class SeatService {
         return seatList;
     }
 
-    public SeatResponse generateSeatResponse() {
+    public SeatResponse generateSeatDTOResponse() {
         int total_rows = TheatreDimensions.ROWS.getValue();
         int total_columns = TheatreDimensions.COLUMNS.getValue();
 
