@@ -6,6 +6,7 @@ import com.cinemaroomrestservice.cinemarestservice.dto.SeatDTO;
 import com.cinemaroomrestservice.cinemarestservice.model.Seat;
 import com.cinemaroomrestservice.cinemarestservice.model.Ticket;
 import com.cinemaroomrestservice.cinemarestservice.service.SeatService;
+import com.cinemaroomrestservice.cinemarestservice.service.StatsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +20,12 @@ import java.util.UUID;
 
 @RestController
 public class PurchaseController {
-    SeatService seatService;
+    private SeatService seatService;
+    private StatsService statsService;
 
-    public PurchaseController(SeatService seatService) {
+    public PurchaseController(SeatService seatService, StatsService statsService) {
         this.seatService = seatService;
+        this.statsService = statsService;
     }
     @PostMapping("/purchase")
     public ResponseEntity<?> purchaseSeat(@RequestBody SeatDTO seatDTO) {
@@ -53,6 +56,9 @@ public class PurchaseController {
         // Update seat
         seat.setOccupied(true);
         seat.setToken(UUID.randomUUID());
+
+        // Update stats
+        statsService.purchaseTicket(ticket);
 
         PurchaseConfirmation confirmation = new PurchaseConfirmation(seat.getToken(), ticket);
 

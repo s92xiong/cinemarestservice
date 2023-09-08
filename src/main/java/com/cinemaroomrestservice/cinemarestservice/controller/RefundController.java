@@ -5,6 +5,7 @@ import com.cinemaroomrestservice.cinemarestservice.dto.RefundRequest;
 import com.cinemaroomrestservice.cinemarestservice.model.Seat;
 import com.cinemaroomrestservice.cinemarestservice.model.Ticket;
 import com.cinemaroomrestservice.cinemarestservice.service.SeatService;
+import com.cinemaroomrestservice.cinemarestservice.service.StatsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,11 @@ import java.util.*;
 @RestController
 public class RefundController {
     private final SeatService seatService;
+    private StatsService statsService;
 
-    public RefundController(SeatService seatService) {
+    public RefundController(SeatService seatService, StatsService statsService) {
         this.seatService = seatService;
+        this.statsService = statsService;
     }
 
     public static Optional<Seat> findSeatByToken(List<Seat> seatList, UUID targetToken) {
@@ -47,6 +50,10 @@ public class RefundController {
 
         Ticket ticket = seat.getTicket();
         RefundConfirmation confirmation = new RefundConfirmation(ticket);
+
+        // Update stats
+        statsService.refundTicket(ticket);
+
         return ResponseEntity.ok(confirmation);
     }
 }
