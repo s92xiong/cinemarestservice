@@ -31,4 +31,8 @@ public class Seat extends Ticket {
     public void setOccupied(boolean occupied) {
         isOccupied = occupied;
     }
+
+    public Ticket getTicket() {
+        return new Ticket(getRow(), getColumn(), getPrice());
+    }
 }
